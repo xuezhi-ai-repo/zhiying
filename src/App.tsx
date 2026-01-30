@@ -1,51 +1,55 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Navbar from './sections/Navbar';
-import Hero from './sections/Hero';
-import FeatureReference from './sections/FeatureReference';
-import FeatureImage from './sections/FeatureImage';
-import FeatureMore from './sections/FeatureMore';
-import WhyChooseUs from './sections/WhyChooseUs';
-import Pricing from './sections/Pricing';
-import TemplateLibrary from './sections/TemplateLibrary';
-import UseCases from './sections/UseCases';
-import Community from './sections/Community';
-import Testimonials from './sections/Testimonials';
-import FAQ from './sections/FAQ';
-import CTA from './sections/CTA';
-import Footer from './sections/Footer';
+import Sidebar from './sections/Sidebar';
+import { usePathname } from './hooks/usePathname';
+import CreatePage from './pages/CreatePage';
+import CommunityPage from './pages/CommunityPage';
+import TemplatesPage from './pages/TemplatesPage';
+import WorksPage from './pages/WorksPage';
+import SubjectsPage from './pages/SubjectsPage';
+import FavoritesPage from './pages/FavoritesPage';
+import MembershipPage from './pages/MembershipPage';
+import SettingsPage from './pages/SettingsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const routeMap = {
+  '/': CreatePage,
+  '/create': CreatePage,
+  '/community': CommunityPage,
+  '/templates': TemplatesPage,
+  '/works': WorksPage,
+  '/subjects': SubjectsPage,
+  '/favorites': FavoritesPage,
+  '/membership': MembershipPage,
+  '/settings': SettingsPage,
+} as const;
+
 function App() {
+  const { path, navigate } = usePathname();
+
   useEffect(() => {
     // Initialize ScrollTrigger
     ScrollTrigger.refresh();
-    
+
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
+  const CurrentPage = useMemo(() => {
+    const normalized = path === '/' ? '/create' : path;
+    return routeMap[normalized as keyof typeof routeMap] ?? NotFoundPage;
+  }, [path]);
+
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      <Navbar />
-      <main>
-        <Hero />
-        <FeatureReference />
-        <FeatureImage />
-        <FeatureMore />
-        <WhyChooseUs />
-        <Pricing />
-        <TemplateLibrary />
-        <UseCases />
-        <Community />
-        <Testimonials />
-        <FAQ />
-        <CTA />
-      </main>
-      <Footer />
+      <Sidebar activePath={path} onNavigate={navigate} />
+      <div className="lg:pl-72">
+        <CurrentPage />
+      </div>
     </div>
   );
 }
