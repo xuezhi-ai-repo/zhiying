@@ -18,8 +18,8 @@ const sections = [
   {
     title: '创作中心',
     items: [
-      { label: '首页', path: '/home', icon: PlayCircle },
-      { label: '开始创作', path: '/', icon: Sparkles, badge: 'New' },
+      { label: '首页', path: '/', icon: PlayCircle },
+      { label: '开始创作', path: '/create', icon: Sparkles, badge: 'New' },
       { label: '社区发现', path: '/community', icon: Compass },
       { label: '模板库', path: '/templates', icon: LayoutGrid },
     ],
@@ -53,7 +53,7 @@ function isModifiedClick(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>)
 export default function Sidebar({ activePath, onNavigate }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const normalizedPath = useMemo(() => (activePath === '/create' ? '/' : activePath), [activePath]);
+  const normalizedPath = useMemo(() => (activePath === '/home' ? '/' : activePath), [activePath]);
 
   const handleNavigate = (path: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (isModifiedClick(event)) return;
@@ -66,8 +66,8 @@ export default function Sidebar({ activePath, onNavigate }: SidebarProps) {
     <div className="flex h-full flex-col">
       <div className="px-5 pt-6 pb-4">
         <a
-          href="/create"
-          onClick={handleNavigate('/create')}
+          href="/"
+          onClick={handleNavigate('/')}
           className="flex items-center gap-3"
         >
           <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-brand shadow-glow">

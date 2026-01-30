@@ -17,7 +17,7 @@ import NotFoundPage from './pages/NotFoundPage';
 gsap.registerPlugin(ScrollTrigger);
 
 const routeMap = {
-  '/': CreatePage,
+  '/': HomePage,
   '/home': HomePage,
   '/create': CreatePage,
   '/community': CommunityPage,
@@ -42,8 +42,7 @@ function App() {
   }, []);
 
   const CurrentPage = useMemo(() => {
-    const normalized = path === '/' ? '/create' : path;
-    return routeMap[normalized as keyof typeof routeMap] ?? NotFoundPage;
+    return routeMap[path as keyof typeof routeMap] ?? NotFoundPage;
   }, [path]);
 
   return (
