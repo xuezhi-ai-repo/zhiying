@@ -1,18 +1,5 @@
-import Hero from '@/sections/Hero';
-import FeatureReference from '@/sections/FeatureReference';
-import FeatureImage from '@/sections/FeatureImage';
-import FeatureMore from '@/sections/FeatureMore';
-import CTA from '@/sections/CTA';
-import PageShell from './PageShell';
+import CreateCenter from '@/sections/CreateCenter';
 
 export default function CreatePage() {
-  return (
-    <PageShell>
-      <Hero />
-      <FeatureReference />
-      <FeatureImage />
-      <FeatureMore />
-      <CTA />
-    </PageShell>
-  );
+  return <CreateCenter />;
 }

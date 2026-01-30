@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Sidebar from './sections/Sidebar';
 import { usePathname } from './hooks/usePathname';
 import CreatePage from './pages/CreatePage';
+import HomePage from './pages/HomePage';
 import CommunityPage from './pages/CommunityPage';
 import TemplatesPage from './pages/TemplatesPage';
 import WorksPage from './pages/WorksPage';
@@ -17,6 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const routeMap = {
   '/': CreatePage,
+  '/home': HomePage,
   '/create': CreatePage,
   '/community': CommunityPage,
   '/templates': TemplatesPage,
